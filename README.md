@@ -1,35 +1,35 @@
 # 0x16. C - Simple Shell
 
-- Basics of programming
-- Basics of C
-- Basics of thinking like an engineer
-- Group work
-- and Learning how to learn
+-Basics of programming
+-Basics of C
+-Basics of thinking like an engineer
+-Group work
+-and Learning how to learn
 
 ### 0. Betty would be proud
-- Write code that passes betty checks
+Mandatory
+-Write code that passes betty checks
 
 ### 1. Simple shell 0.1
-Write a UNIX command line interpreter.
-
+Mandatory
 File: simple_shell
-Your Shell should:
+Write a UNIX command line interpreter.
+Your Shell should: 
+-Display a prompt and wait for the user to type a command. A command line always ends with a new line.
+-The prompt is displayed again each time a command has been executed.
+-The command lines are simple, no semicolons, no pipes, no redirections or any other advanced features.
+-The command lines are made only of one word. No arguments will be passed to programs.
+-If an executable cannot be found, print an error message and display the prompt again.
+-Handle errors.
+-You have to handle the “end of file” condition (Ctrl+D)
 
-- Display a prompt and wait for the user to type a command. A command line always ends with a new line.
-- The prompt is displayed again each time a command has been executed.
-- The command lines are simple, no semicolons, no pipes, no redirections or any other advanced features.
-- The command lines are made only of one word. No arguments will be passed to programs.
-- If an executable cannot be found, print an error message and display the prompt again.
-- Handle errors.
-- You have to handle the “end of file” condition (Ctrl+D)
 You don’t have to:
-
-- use the PATH
-- implement built-ins
-- handle special characters : ", ', `, \, *, &, #
-- be able to move the cursor
-- handle commands with arguments
-- execve will be the core part of your Shell, don’t forget to pass the environ to it…
+-use the PATH
+-implement built-ins
+-handle special characters : ", ', `, \, *, &, #
+-be able to move the cursor
+-handle commands with arguments
+-execve will be the core part of your Shell, don’t forget to pass the environ to it…
 
 julien@ubuntu:~/shell$ ./shell 
 #cisfun$ ls
@@ -52,14 +52,15 @@ env-environ.c  exec    fork    mypid   ppid   printenv  promptc  shell     stat 
 #cisfun$ julien@ubuntu:~/shell$
 
 ### 2. Simple shell 0.2
+Mandatory
 Simple shell 0.1+ should:
-- Handle command lines with arguments
+-Handle command lines with arguments
 
 ### 3. Simple shell 0.3
+Mandatory
 Simple shell 0.2 + should:
-
-- Handle the PATH
-- fork must not be called if the command doesn’t exist
+-Handle the PATH
+-fork must not be called if the command doesn’t exist
 
 
 julien@ubuntu:~/shell$ ./shell_0.3
@@ -80,11 +81,79 @@ drwx------ 3 root   root   4096 Dec  5 12:07 systemd-private-062a0eca7f2a4434973
 julien@ubuntu:~/shell$ 
 
 ### 4. Simple shell 0.4
-Simple shell 0.3 + should: 
-
-- Implement the exit built-in, that exits the shell
-
+Mandatory
 file: exit
-You don’t have to handle any argument to the built-in exit
+Simple shell 0.3 + should: 
+-Implement the exit built-in, that exits the shell
+-You don’t have to handle any argument to the built-in exit
 
+
+### 5. Simple shell 1.0
+Mandatory
+Simple shell 0.4 + should:
+-Implement the env built-in, that prints the current environment
+
+julien@ubuntu:~/shell$ ./simple_shell
+$ env
+USER=julien
+LANGUAGE=en_US
+SESSION=ubuntu
+COMPIZ_CONFIG_PROFILE=ubuntu
+SHLVL=1
+HOME=/home/julien
+C_IS=Fun_:)
+DESKTOP_SESSION=ubuntu
+LOGNAME=julien
+TERM=xterm-256color
+PATH=/home/julien/bin:/home/julien/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+DISPLAY=:0
+$ exit
+julien@ubuntu:~/shell$ 
+
+
+### 6. Simple shell 0.1.1
+Advanced
+Simple shell 0.1 + should:
+-Write your own getline function
+-Use a buffer to read many chars at once and call the least possible the read system call
+-You will need to use static variables
+-You are not allowed to use getline
+
+You don’t have to:
+-be able to move the cursor
+
+### 7. Simple shell 0.2.1
+Advanced
+Simple shell 0.2 +
+-You are not allowed to use strtok
+
+
+### 8. Simple shell 0.4.1
+Advanced
+File: exit status, where status is an integer used to exit the shell
+Simple shell 0.4 + should:
+-handle arguments for the built-in exit
+
+julien@ubuntu:~/shell$ ./shell_0.4.1
+$ exit 98
+julien@ubuntu:~/shell$ echo $?
+98
+julien@ubuntu:~/shell$ 
+
+
+### 9. setenv, unsetenv
+#advanced
+Simple shell 1.0 + should:
+
+Implement the setenv and unsetenv builtin commands
+
+setenv
+-Initialize a new environment variable, or modify an existing one
+-Command syntax: setenv VARIABLE VALUE
+-Should print something on stderr on failure
+
+unsetenv
+-Remove an environment variable
+-Command syntax: unsetenv VARIABLE
+-Should print something on stderr on failure
 
