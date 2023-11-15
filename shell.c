@@ -6,6 +6,7 @@
 
 /**
  * BUFFER_SIZE: parent process
+ * exec_command: child process for running commands
  * 
  * 
  * return: 0
@@ -24,14 +25,13 @@ void shell(char *command) {
     }
 }
 
-void execute_command(char *command) {
+void exec_command(char *command) {
     pid_t pid = fork();
 
     if (pid == -1) {
         perror("fork");
     } else if (pid == 0) {
-        // Child process
-        char *args[64]; // Adjust the size based on your needs
+        char *args[64];
         int i = 0;
 
         // Tokenize the command
@@ -72,7 +72,7 @@ int main() {
             break;
         }
 
-        execute_command(command);
+        exec_command(command);
     }
 
     return 0;
