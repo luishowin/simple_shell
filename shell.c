@@ -13,7 +13,7 @@
 
 void read_cmd(char *command) {
     size_t len;  /* Declare size_t at the beginning of the block or function */
-    printf("$");
+    printf("$ ");
     fgets(command, MAX_INPUT_BUFFER_SIZE, stdin);
 
     /* Remove newline character */
