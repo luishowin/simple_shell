@@ -5,51 +5,50 @@
 #include <sys/wait.h>
 
 /**
- * BUFFER_SIZE: parent process
- * exec_command: child process for running commands
+ * read_cmd: reads the command entered
  * 
- * 
- * return: 0
+ * return 0
 */
+#define MAX_INPUT_BUFFER_SIZE 1024
 
-#define BUFFER_SIZE 1024
-
-void shell(char *command) {
+void read_cmd(char *command) {
+    size_t len;  /* Declare size_t at the beginning of the block or function */
     printf("$");
-    fgets(command, BUFFER_SIZE, stdin);
+    fgets(command, MAX_INPUT_BUFFER_SIZE, stdin);
 
-    // Remove newline character
-    size_t len = strlen(command);
+    /* Remove newline character */
+    len = strlen(command);
     if (len > 0 && command[len - 1] == '\n') {
         command[len - 1] = '\0';
     }
 }
 
-void exec_command(char *command) {
+void execute_cmd(char *command) {
     pid_t pid = fork();
 
     if (pid == -1) {
         perror("fork");
     } else if (pid == 0) {
-        char *args[64];
+        /* Child process */
+        char *args[64]; /* Adjust the size based on your needs */
         int i = 0;
 
-        // Tokenize the command
+        /* Tokenize the command */
         char *token = strtok(command, " ");
         while (token != NULL) {
             args[i++] = token;
             token = strtok(NULL, " ");
         }
 
-        args[i] = NULL; // Null-terminate the argument list
+        args[i] = NULL; /* Null-terminate the argument list */
 
-        // Execute the command
+        /* Execute the command */
         if (execvp(args[0], args) == -1) {
             perror("execvp");
             exit(EXIT_FAILURE);
         }
     } else {
-        // Parent process
+        /* Parent process */
         int status;
         waitpid(pid, &status, 0);
 
@@ -62,19 +61,18 @@ void exec_command(char *command) {
 }
 
 int main() {
-    char command[BUFFER_SIZE];
+    char command[MAX_INPUT_BUFFER_SIZE];
 
     while (1) {
-        read_command(command);
+        read_cmd(command);
 
-        // Exit the shell if the user enters "exit"
+        /* Exit the shell if the user enters "exit" */
         if (strcmp(command, "exit") == 0) {
             break;
         }
 
-        exec_command(command);
+        execute_cmd(command);
     }
 
     return 0;
 }
-
