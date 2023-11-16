@@ -13,17 +13,21 @@
 */
 #define MAX_INPUT_BUFFER_SIZE 1024
 
-void read_cmd(char *command) {
+int read_cmd(char *command) {
     size_t len;  
 
     printf("$ ");
-    fgets(command, MAX_INPUT_BUFFER_SIZE, stdin);
+    if  (fgets(command, MAX_INPUT_BUFFER_SIZE, stdin) == NULL){
+        return 0;
+    }
 
     /* Remove newline character */
     len = strlen(command);
     if (len > 0 && command[len - 1] == '\n') {
         command[len - 1] = '\0';
     }
+
+    return 1; /* cmd successfully read, 0 on eof*/
 }
 
 void execute_cmd(char *command) {
