@@ -60,7 +60,8 @@ void execute_cmd(char *command) {
         waitpid(pid, &status, 0);
 
         if (WIFEXITED(status)) {
-            printf("Child process exited with status %d\n", WEXITSTATUS(status));
+            /*printf("Child process exited with status %d\n", WEXITSTATUS(status));*/
+            printf("\n");
         } else {
             printf("Child process terminated abnormally\n");
         }
