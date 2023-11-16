@@ -6,13 +6,16 @@
 
 /**
  * read_cmd: reads the command entered
- * 
- * return 0
+ * @command: buffer to store the command
+ * execute_cmd - executes the command entered
+ * main - Entry to the program
+ * Return: 0 on success
 */
 #define MAX_INPUT_BUFFER_SIZE 1024
 
 void read_cmd(char *command) {
-    size_t len;  /* Declare size_t at the beginning of the block or function */
+    size_t len;  
+
     printf("$ ");
     fgets(command, MAX_INPUT_BUFFER_SIZE, stdin);
 
