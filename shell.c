@@ -18,7 +18,7 @@ int read_cmd(char *command) {
 
     printf("$ ");
     if  (fgets(command, MAX_INPUT_BUFFER_SIZE, stdin) == NULL){
-        return 0;
+        return 0;/* EOF encountered */
     }
 
     /* Remove newline character */
@@ -27,9 +27,13 @@ int read_cmd(char *command) {
         command[len - 1] = '\0';
     }
 
-    return 1; /* cmd successfully read, 0 on eof*/
+    return 1; /* command successfully read*/
 }
 
+/**
+ * execute_cmd - Executes the command entered.
+ * @command: The command to execute.
+ */
 void execute_cmd(char *command) {
     pid_t pid = fork();
 
